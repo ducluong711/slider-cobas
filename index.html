@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Slider Máy Cobas</title>
+<!-- Swiper CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+/>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+  }
+  .slider-container {
+    display: flex;
+    gap: 20px;
+  }
+  .info-box {
+    flex: 1;
+    padding-top: 10px;
+  }
+  .info-box h2 {
+    margin: 0 0 10px 0;
+  }
+  .info-box ul {
+    padding-left: 20px;
+  }
+  .swiper {
+    flex: 3;
+    max-width: 900px;
+  }
+  .swiper-slide img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  /* Thumbnail styles */
+  .swiper-thumb {
+    margin-top: 15px;
+    max-width: 400px;
+  }
+  .swiper-thumb .swiper-slide {
+    width: 100px !important;
+    height: 60px;
+    opacity: 0.4;
+    cursor: pointer;
+  }
+  .swiper-thumb .swiper-slide-thumb-active {
+    opacity: 1;
+    border: 2px solid #007bff;
+    border-radius: 6px;
+  }
+  .swiper-thumb .swiper-slide img {
+    height: 60px;
+    object-fit: cover;
+	}
+  .slider-container {
+  background-color: #eaf6ff; /* Màu nền tổng thể */
+  padding: 20px;
+  border-radius: 0px;
+}
+.thumb-container {
+  background-color: #e6f7ff;  /* giống màu .slider-container để liền khối */
+  padding: 15px 20px;
+  border-radius: 0 0 12px 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+  }
+</style>
+</head>
+<body>
+
+<div class="slider-container">
+  <div class="info-box" id="infoBox">
+    <h2>Cobas® 5800</h2>
+    <ul>
+      <li>Hiện đại</li>
+      <li>Vừa và nhỏ</li>
+      <li>144 mẫu</li>
+    </ul>
+  </div>
+  <!-- Main Slider -->
+  <div class="swiper main-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="https://i.postimg.cc/BvWvyJ01/5800.jpg" alt="Cobas 5800" />
+      </div>
+      <div class="swiper-slide">
+        <img src="https://i.postimg.cc/s293NSmt/6800.jpg" alt="Cobas 6800" />
+      </div>
+      <div class="swiper-slide">
+        <img src="https://i.postimg.cc/d1sJP1SD/6800-v2.jpg" alt="Cobas 6800 v2" />
+      </div>
+    </div>
+  </div>
+</div>
+</div> <!-- Kết thúc .slider-container -->
+
+<!-- Mở khung nền phủ luôn thumbnail -->
+<div class="thumb-container">
+  <!-- Thumbnail Slider -->
+  <div class="swiper swiper-thumb">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <img src="https://i.postimg.cc/BvWvyJ01/5800.jpg" alt="Cobas 5800" />
+    </div>
+    <div class="swiper-slide">
+      <img src="https://i.postimg.cc/s293NSmt/6800.jpg" alt="Cobas 6800" />
+    </div>
+    <div class="swiper-slide">
+      <img src="https://i.postimg.cc/d1sJP1SD/6800-v2.jpg" alt="Cobas 6800 v2" />
+    </div>
+  </div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script>
+  const infoData = [
+    {
+      title: "Cobas® 5800",
+      features: ["Hiện đại", "Vừa và nhỏ", "144 mẫu"]
+    },
+    {
+      title: "Cobas® 6800",
+      features: ["Công suất lớn", "Hiện đại", "1180 mẫu"]
+    },
+    {
+      title: "Cobas® 6800 v2",
+      features: ["Hiện đại", "Kết hợp cả 2", "Vô song"]
+    }
+  ];
+
+  // Initialize thumb swiper
+  const thumbSwiper = new Swiper(".swiper-thumb", {
+    slidesPerView: 3,
+    spaceBetween: 10,
+    watchSlidesProgress: true,
+    watchSlidesVisibility: true,
+    slideToClickedSlide: true,
+    loop: true,
+  });
+
+  // Initialize main swiper and link thumbs
+  const mainSwiper = new Swiper(".main-swiper", {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    thumbs: {
+      swiper: thumbSwiper,
+    },
+    on: {
+      slideChange: () => {
+        const realIndex = mainSwiper.realIndex;
+        const info = infoData[realIndex];
+        const infoBox = document.getElementById("infoBox");
+        infoBox.innerHTML = `<h2>${info.title}</h2><ul>${info.features
+          .map((f) => `<li>${f}</li>`)
+          .join("")}</ul>`;
+      },
+    },
+  });
+</script>
+
+</body>
+</html>
